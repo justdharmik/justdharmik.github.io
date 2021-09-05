@@ -3,7 +3,6 @@
 
 // Toast To Reload
 
-
 // Variables
 var myTime;
 var currentDate;
@@ -13,6 +12,7 @@ var myTimeT;
 var currentTimeT;
 var tfhourF;
 var tHourF;
+var VanillaTilt;
 
 // Main Clock and Date
 // 
@@ -57,7 +57,6 @@ function toggle(){
         document.getElementById("date").innerHTML = `on ${currentDate}`
 }, 1000)
 }
-
 
 
 
