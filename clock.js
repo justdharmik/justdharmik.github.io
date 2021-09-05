@@ -43,6 +43,13 @@ function toggle(){
         myTime = new Date()
 //      myTime.setHours(20)
         hourChange = myTime.getHours()
+        var ampm = ''
+        if (hourChange>= 12) {
+            ampm = 'pm'
+        }
+        else if (hourChange < 12) {
+            ampm = 'am'
+        }
         if (hourChange > 12) {
             hourChange -= 12;
             // myTimeT = hourChange;
@@ -52,7 +59,7 @@ function toggle(){
             // myTimeT = hourChange;
         }
         currentDate = myTime.toLocaleDateString(undefined, options)
-        currentTime = `${(hourChange < 10 ? '0' : '')+ hourChange}:${(myTime.getMinutes() < 10 ? '0' : '') + myTime.getMinutes()}:${(myTime.getSeconds() < 10 ? '0' : '') + myTime.getSeconds()}`
+        currentTime = `${(hourChange < 10 ? '0' : '')+ hourChange}:${(myTime.getMinutes() < 10 ? '0' : '') + myTime.getMinutes()}:${(myTime.getSeconds() < 10 ? '0' : '') + myTime.getSeconds()} ${ampm}`
         document.getElementById("time").innerHTML = currentTime
         document.getElementById("date").innerHTML = `on ${currentDate}`
 }, 1000)
