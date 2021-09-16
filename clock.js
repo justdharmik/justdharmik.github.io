@@ -1,6 +1,5 @@
 //--- The Clock JavaScript ---
 
-
 // Toast To Reload
 
 // Variables
@@ -13,38 +12,58 @@ var currentTimeT;
 var tfhourF;
 var tHourF;
 var VanillaTilt;
+var clickRec;
+
+var greetDay = ["Good Morning. It is a beautiful day!", "Morning Folks. Have a great day!", "Wow the sun is so bright today!"]
+var greetEve = ["Good Evening. Don't forget your snacks!", "What a beautiful evening!", "Hey there, this evening is mesmerizing."]
+
+var rEve = greetEve[Math.floor(Math.random()*greetEve.length)] + " <br>"
+var rDay = greetDay[Math.floor(Math.random()*greetDay.length)] + " <br>"
 
 // Main Clock and Date
-// 
+
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
 
-tfHourF = setInterval(() => {
-    myTime = new Date()
-//  myTime.setHours(20)
-    currentDate = myTime.toLocaleDateString(undefined, options)
-    currentTime = `${(myTime.getHours() < 10 ? '0' : '') + myTime.getHours()}:${(myTime.getMinutes() < 10 ? '0' : '') + myTime.getMinutes()}:${(myTime.getSeconds() < 10 ? '0' : '') + myTime.getSeconds()}`
-    document.getElementById("time").innerHTML = currentTime
-    document.getElementById("date").innerHTML = `on ${currentDate}`
-}, 1000)
+function clicked() {
+    if (clickRec == 0) {
+        toggleBack()
+    }
+    else {
+        toggle()
+    }
+}
 
+// For 24 Hour Format
 
-// Toggle Time Format
-// 
-console.log("Not Clicked")
+function toggleBack() {
+    clearInterval(tHourF)
+    tfHourF = setInterval(() => {
+        clickRec = 1
+        myTime = new Date()
+    //  myTime.setHours(20)
+        currentDate = myTime.toLocaleDateString(undefined, options)
+        currentTime = `${(myTime.getHours() < 10 ? '0' : '') + myTime.getHours()}:${(myTime.getMinutes() < 10 ? '0' : '') + myTime.getMinutes()}:${(myTime.getSeconds() < 10 ? '0' : '') + myTime.getSeconds()}`
+        document.getElementById("time").innerHTML = currentTime
+        document.getElementById("date").innerHTML = `on ${currentDate}`
+    }, 1000)
+}
+
+// For 12 Hour Format | Toggle
+
 function toggle(){
     clearInterval(tfHourF)
     var toastLiveExample = document.getElementById('liveToast')
     var toast = new bootstrap.Toast(toastLiveExample)
     toast.show()
+    clickRec = 0
+    
 
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
     tHourF = setInterval(() => {
-        console.log("Clicked")
         myTime = new Date()
-//      myTime.setHours(20)
         hourChange = myTime.getHours()
         var ampm = ''
-        if (hourChange>= 12) {
+        if (hourChange >= 12) {
             ampm = 'pm'
         }
         else if (hourChange < 12) {
@@ -52,11 +71,9 @@ function toggle(){
         }
         if (hourChange > 12) {
             hourChange -= 12;
-            // myTimeT = hourChange;
         } 
         else if (hourChange === 0) {
             hourChange = 12;
-            // myTimeT = hourChange;
         }
         currentDate = myTime.toLocaleDateString(undefined, options)
         currentTime = `${(hourChange < 10 ? '0' : '')+ hourChange}:${(myTime.getMinutes() < 10 ? '0' : '') + myTime.getMinutes()}:${(myTime.getSeconds() < 10 ? '0' : '') + myTime.getSeconds()} ${ampm}`
@@ -65,68 +82,12 @@ function toggle(){
 }, 1000)
 }
 
+// Greetings
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-myTimeT = new Date()
-hourChange = myTimeT.getHours()
-console.log("before: " + hourChange)
-var click = 0
-function toggle(){
-    click += 1
-    clearInterval(tfHourF)
-    if (click == 1){
-        
-        if (hourChange > 12) {
-            hourChange -= 12;
-            // myTimeT = hourChange;
-        } 
-        else if (hourChange === 0) {
-            hourChange = 12;
-            // myTimeT = hourChange;
-        }
-        tHourF = setInterval(() => {
-            console.log("clicked: " + hourChange)
-            currentDate = myTime.toLocaleDateString(undefined, options)
-            currentTime = `${(hourChange < 10 ? '0' : '') + hourChange}:${(myTimeT.getMinutes() < 10 ? '0' : '') + myTimeT.getMinutes()}:${(myTimeT.getSeconds() < 10 ? '0' : '') + myTimeT.getSeconds()}`
-            document.getElementById("time").innerHTML = currentTime
-            document.getElementById("date").innerHTML = `on ${currentDate}`
-
-        }, 1000);
-    }
-    else if (click > 1) {
-        tfhourF
-    }
-    return click
+if (hourChange >= 12) {
+    document.getElementsByClassName(".greetings").innerHTML = rEve
 }
-*/
+else if (hourChange < 12) {
+    document.getElementsByClassName(".greetings").innerHTML = rDay
+}
 

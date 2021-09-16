@@ -436,7 +436,7 @@ class VanillaTilt {
       max: 15,
       startX: 0,
       startY: 0,
-      perspective: 1000,
+      perspective: 3000,
       easing: "cubic-bezier(.03,.98,.52,.99)",
       scale: 1,
       speed: 300,
@@ -513,9 +513,9 @@ return VanillaTilt;
 
 VanillaTilt.init(document.querySelectorAll('.myTilt'), { 
   max: 15, 
-  speed: 400, 
+  speed: 500, 
   glare: true, 
-  'max-glare': 1,
+  'max-glare': 0.6,
 });
 
 //-Credits-to-respective-creator-

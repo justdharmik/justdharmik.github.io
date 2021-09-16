@@ -15,51 +15,50 @@
     <script src="clock.js"></script>
     
   </head>
-
-  <body>
-
+  
+  <body onload="toggleBack()">
+    
       <div class="navbar-expand-lg">
         <nav class="navbar navbarFont">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <span class="p-3" data-bs-toggle="offcanvas" href="#mySide"><img src="clock-brand-white.svg" alt="Clock Icon" width="29" height="29" class="d-inline-block align-text-top"></span>
-                    <span class="heading pageHeading text-light">Clocks</span>
+                    <span class="p-3" data-bs-toggle="offcanvas" href="#mySide"><img src="clock-brand-white.svg" alt="Clock Icon" width="29" height="26" class="d-inline-block align-text-top"></span>
+                    <span class="heading pageHeading text-light tShad">Clocks</span>
                     <div class="collapse navbar-collapse" id="navbarNav"> 
                     </div>    
-                    <a type="button" class="btn myGlbtn2 text-light" id="liveToastBtn" data-bs-toggle="tooltip" data-bs-html="true" title="Switch Time Format" onclick="toggle()">Toggle Time</a>
+                    <a type="button" class="btn myGlbtn2 text-light" id="liveToastBtn" data-bs-toggle="tooltip" data-bs-html="true" title="Switch Time Format" onclick="clicked()">Toggle Time</a>
                 </a>
             </div>
         </nav>
       </div>
-    
+
       <div class="position-fixed end-0 p-3 containerFont" style="z-index: 11">
         <div id="liveToast" class="toast myGl" role="alert" aria-live="assertive" aria-atomic="true">
           <div class="toast-header myGlHead">
             <img src="clock-brand-white.svg" class="rounded me-2" alt="Icon" width="19" height="19">
             <strong class="me-auto text-light">Toggle Time</strong>
-            <button type="button" class="btn-close  btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            <button type="button" class="btn-close  btn-close-white btn" data-bs-dismiss="toast" aria-label="Close"></button>
           </div>
-          <div class="toast-body text-light">
-            Reload page to reset the Time Format to 24 Hours.
+          <div class="toast-body text-light toastMsg">
+            Click again to revert back.
           </div>
         </div>
       </div>
       
-    <div class="container myBgMain p-2 text-light">
+    <div class="container myBgMain p-5 text-light">
       <div class="container myGl containerFont rounded-3 my-4 myTilt" id="clockSpace">
-        <div class="jumbotron p-4 myParallax">
+        <div class="jumbotron p-4 tzones">
             <h1 class="display-4 custFH">Current Time: <span id="time"></span></h1>
-            <p class="lead"><span class="myDate" id="date"></span><br>Welcome to Clocks! <br>Do you wish to seek different timezones? Don't worry, we've got you covered!</p>
+            <p class="lead"><span class="myDate" id="date"></span><br><span class="greetings" id="greet"></span>Welcome to Clocks! <br>Do you wish to seek different timezones? Don't worry, we've got you covered!</p>
             <hr class="my-4">
-            
-            <p class="lead">Explore different timezones from the dropdown below!</p>
+            <p class="lead">Explore different timezones. Click the button below!</p>
             <a class="btn myGlbtn text-light btn-lg align-text-middle" href="#" type="button">Time Zones</a>
-            <p><br>This is a Bootstrapped website made with HTML, CSS & JavaScript.</p>
+            <!-- <p><br>This is a Bootstrapped website made with HTML, CSS & JavaScript.</p> -->
           </div>
       </div>
     </div>
 
-    <div class="footer container containerFont text-light">
+    <div class="footer px-5  containerFont text-light" >
       <hr class="my-1">
       <footer class="d-flex flex-wrap justify-content-end">
         <figure class="text-end">
@@ -77,7 +76,7 @@
       <div class="offcanvas-header">
         <img src="clock-brand-white.svg" class="rounded me-2" alt="Icon" width="22" height="22">
         <h5 class="offcanvas-title" id="offcanvasExampleLabel">Clocks</h5>
-        <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white text-reset btn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <hr class="my-0">
       <div class="offcanvas-body">
@@ -101,6 +100,7 @@
               Why This?
             </a></li>
             <div class="collapse" id="mWhy">
+              <hr class="my-2">
               <div class="card card-body cardBg">
                 This is developed as a practice of HTML, CSS and JavaScript.<br> Also, to include this as a personal project for my Resume. 
               </div>
