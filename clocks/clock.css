@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+.containerFont, .navbarFont {
+    /* font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+    font-family: 'Montserrat', sans-serif; 
+}
+
+.myDate {
+    font-size: 2.0rem;
+    font-style: 'bold' ;
+}
+
+.pageHeading {
+    font-size: 1.5rem;
+}
+
+/* .bgMy {
+    background-image: url(https://source.unsplash.com/1600x900/?transparent); 
+    background: transparent;
+} */
+
+.myPadList {
+    padding: 0.2rem 1rem;
+}
+
+.myGl {
+    background-color: rgba(225, 225, 225, 0.11);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(7px);
+    border-top: 1px solid rgba(225, 225, 225, 0.5);
+    border-left: 1px solid rgba(225, 225, 225, 0.5);
+}
+
+.myGlCan {
+    background-color: rgba(225, 225, 225, 0.132);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(7px);
+}
+
+.myGlCanvas {
+    background-color: rgba(225, 225, 225, 0.0.002);
+    backdrop-filter: blur(5px);
+    border-radius: 0.3rem;
+}
+
+.myGlHead {
+    background-color: rgba(225, 225, 225, 0.002);
+    backdrop-filter: blur(7px);
+}
+
+.myGlbtn {
+    background-color: rgba(225, 225, 225, 0.002);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(2px);
+}
+
+.myGlbtn2 {
+    background-color: rgba(225, 225, 225, 0.132);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(2px);
+}
+
+.footFontS {
+    font-size: 0.8rem;
+}
+
+body {
+    background: url(https://source.unsplash.com/1600x900/?black,cosmic,neon,trails);
+    background-size: cover;
+}
+
+.myBorder {
+    border-bottom: rgba(236, 17, 17, 0.856);
+}
+
+/* .myTilt {
+
+    transform-style:preserve-3d;
+    transform: perspective(2500px);
+} */
+
+.myParallax {
+    transform: translateZ(20px);
+}
+
+.cardBg {
+    background: rgba(225, 225, 225, 0.132);
+}
+
+.custFH {
+    font-size: 3rem;
+}
+
+.btn:focus {
+    outline:none;
+    box-shadow: none;
+}
+
+.tShad{
+    text-shadow: 1px 1px 2px rgba(225, 225, 225, 0.5);
+    font-weight: bold;
+}
