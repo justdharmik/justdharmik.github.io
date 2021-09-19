@@ -65,7 +65,7 @@
 }
 
 body {
-    background: url(https://source.unsplash.com/1600x900/?black,cosmic,neon,trails);
+    background: url(https://source.unsplash.com/1600x900/?black,cosmic,neon,trails) no-repeat fixed center center;
     background-size: cover;
 }
 
