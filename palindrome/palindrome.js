@@ -12,8 +12,8 @@ function check() {
         const rev = tlist.reverse()
         const revtext = rev.join("")
         const extras = `<br>Words: ${text.split(" ").length} | Letters: ${nospace.length}`
-        const yes = `${text} = ${revtext}<br>It is a Palindrome! ${extras}`
-        const no = `${text} != ${revtext}<br>It is not a Palindrome! ${extras}`
+        const yes = `${text}  =  ${revtext}<br>It is a Palindrome! ${extras}`
+        const no = `${text}  !=  ${revtext}<br>It is not a Palindrome! ${extras}`
         if (text == revtext){
             document.getElementById("print").innerHTML = yes
             console.log("It is a palindrome")    
