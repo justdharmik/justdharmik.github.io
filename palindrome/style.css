@@ -16,7 +16,8 @@ html {
 div {
     border-radius: 8px;
     /* height: 300px; */
-    /* width: 500px; */
+    width: 85%;
+    max-width: 500px;
     position: absolute;
     top: 50%;
     left: 50%;
