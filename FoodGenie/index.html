@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Munching Genie - Choose What To Eat!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: "Lato", sans-serif; }
+    body {
+      margin: 0;
+      background: linear-gradient(145deg, #e3eaf2, #ffffff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    body.dark {
+      background: linear-gradient(145deg, #1c1c1c, #2c2c2c);
+      color: #fff;
+    }
+    body.dark h1,
+    body.dark .selection-label,
+    body.dark .item-tag,
+    /* body.dark input, */
+    body.dark .button,
+    body.dark .clear-button {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      color: inherit;
+    }
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 30px 25px;
+      width: 90%;
+      max-width: 420px;
+      text-align: center;
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    h1 {
+      color: #111;
+      margin-bottom: 24px;
+      font-size: 26px;
+    }
+    .input-group {
+      display: block;
+    }
+    .input-group.hide {
+      display: none;
+    }
+    .input-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+    input[type="text"] {
+      padding: 14px;
+      font-size: 16px;
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    .clear-button {
+      margin-top: 14px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.6);
+      font-size: 20px;
+      font-weight: bold;
+      color: #000;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      display: none;
+    }
+    .clear-button.show {
+      display: inline-block;
+    }
+    .item-list {
+      margin: 12px 0;
+	  margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .item-tag {
+      background: rgba(255, 255, 255, 0.65);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    .item-tag:hover {
+      background-color: rgba(255, 255, 255, 0.85);
+      transform: scale(1.05);
+    }
+    .button {
+      margin-top: 14px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .button:hover {
+      background: rgba(255, 255, 255, 0.8);
+      transform: translateY(-1px);
+    }
+    .spinner-container {
+      margin-top: 10px;
+      height: 125px;
+      overflow-y: hidden;
+      position: relative;
+      display: none;
+    }
+    .spinner-container.show {
+      display: block;
+    }
+    .spinner-list {
+      height: 100%;
+      overflow-y: hidden;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .spinner-list::-webkit-scrollbar {
+      display: none;
+    }
+    .spinner-item {
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      scroll-snap-align: center;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+    .spinner-item.selected {
+      font-weight: bold;
+      font-size: 17px;
+      color: #E23747;
+      background: #fbeaec;
+      transform: scale(1.05);
+      border-radius: 12px;
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+    .selection-label {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #333;
+      display: none;
+    }
+    .selection-label.show {
+      display: block;
+    }
+    .button-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .button-container.show {
+      display: flex;
+    }
+    .go-button {
+      margin: 8px 0;
+      padding: 10px;
+      background-color: #E23747;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      backdrop-filter: blur(12px);
+      width: 100%;
+      max-width: 240px;
+    }
+    .eatclub-button {
+      margin: 8px 0;
+      padding: 10px;
+      background-color: #000000;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      backdrop-filter: blur(12px);
+      width: 100%;
+      max-width: 240px;
+    }
+	.swiggy-button {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      backdrop-filter: blur(12px);
+      width: 100%;
+      max-width: 240px;
+	  background-color: #fc8019;
+    }
+	
+    .go-button:hover, .eatclub-button:hover, .swiggy-button:hover {
+      transform: scale(1.05);
+    }
+	
+	.go-button img {
+      height: 20px;
+      vertical-align: middle;
+    }
+	
+	.eatclub-button img {
+      height: 25px;
+      vertical-align: middle;
+    }
+	
+    .swiggy-button img {
+      height: 25px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle material-symbols-outlined" onclick="toggleTheme()" title="Toggle theme">dark_mode</button>
+  <div class="glass-card">
+    <h1 style="background-color: transparent;">What Are You Craving?</h1>
+    <div class="input-group" id="inputGroup">
+      <input type="text" id="dishInput" placeholder="e.g. Pizza, Chicken Lollipop, Burger..." onkeydown="handleKey(event)">
+      <div class="input-actions">
+        <button class="button" onclick="addDish()">Add to List</button>
+        <button class="clear-button" onclick="clearList()">&times;</button>
+      </div>
+      <div class="item-list" id="itemList"></div>
+    </div>
+    <div class="button-group-row" style="margin-top: 14px;">
+  <button class="button" onclick="spinWheel()">Spin & Decide</button>
+  <button class="button" id="naahButton" onclick="goBack()" style="display: none; margin-left: 10px;">Naah! Add Again</button>
+</div>
+
+
+    <div class="selection-label" id="selectionLabel" style="background-color: transparent;">Go For:</div>
+    <div class="spinner-container" id="spinnerContainer">
+      <div class="spinner-list" id="spinnerList"></div>
+    </div>
+    <div class="button-container" id="buttonContainer">
+      <div class="choose-text">Choose from below</div>
+      <button class="go-button" onclick="goToZomato()">
+        <img src="https://b.zmtcdn.com/web_assets/8313a97515fcb0447d2d77c276532a511583262271.png" alt="Zomato Logo">
+      </button>
+      <button class="eatclub-button" onclick="goToEatClub()">
+        <img src="https://d203x0tuwp1vfo.cloudfront.net/20250616100016/assets/images/logo.png" alt="EatClub Logo">
+      </button>
+	  <button class="swiggy-button" onclick="window.open('https://www.swiggy.com/restaurants', '_blank')">
+        <img src="https://res.cloudinary.com/dutdah0l9/image/upload/v1720058694/Swiggy_logo_bml6he.png" alt="Swiggy Logo">
+      </button>
+    </div>
+  </div>
+  <script>
+     function toggleTheme() {
+      const body = document.body;
+      const btn = document.querySelector('.theme-toggle');
+      const isDark = body.classList.toggle('dark');
+      const icon = isDark ? 'light_mode' : 'dark_mode';
+      btn.textContent = icon;
+      localStorage.setItem('preferredTheme', isDark ? 'dark' : 'light');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('preferredTheme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        document.querySelector('.theme-toggle').textContent = 'light_mode';
+      }
+    });
+
+    const itemListEl = document.getElementById('itemList');
+    const clearBtn = document.querySelector('.clear-button');
+    const observer = new MutationObserver(() => {
+      if (itemListEl.children.length > 0) {
+        clearBtn?.classList.add('show');
+      } else {
+        clearBtn?.classList.remove('show');
+      }
+    });
+
+    if (itemListEl) {
+      observer.observe(itemListEl, { childList: true });
+    }
+
+    const items = [];
+
+    function addDish() {
+      const input = document.getElementById('dishInput');
+      const value = input.value.trim();
+      if (value && !items.includes(value)) {
+        items.push(value);
+        const tag = document.createElement('div');
+        tag.className = 'item-tag';
+        tag.textContent = value;
+        tag.onclick = () => {
+          items.splice(items.indexOf(value), 1);
+          tag.remove();
+        };
+        document.getElementById('itemList').appendChild(tag);
+      }
+      input.value = '';
+      input.focus();
+    }
+
+    function handleKey(event) {
+      if (event.key === 'Enter') {
+        addDish();
+      }
+    }
+
+    function clearList() {
+      items.length = 0;
+      document.getElementById('itemList').innerHTML = '';
+    }
+
+    function spinWheel() {
+      if (items.length === 0) {
+        alert('Please add at least one craving.');
+        return;
+      }
+
+      const spinner = document.getElementById('spinnerList');
+      const spinnerContainer = document.getElementById('spinnerContainer');
+      const selectionLabel = document.getElementById('selectionLabel');
+      const buttonContainer = document.getElementById('buttonContainer');
+      const inputGroup = document.getElementById('inputGroup');
+
+      spinner.innerHTML = '';
+
+      spinnerContainer.classList.add('show');
+      selectionLabel.classList.add('show');
+      inputGroup.classList.add('hide');
+	  document.getElementById('naahButton').style.display = 'inline-block';
+
+
+      const fullList = [];
+      const repeat = 20;
+      for (let i = 0; i < repeat; i++) fullList.push(...items);
+
+      fullList.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'spinner-item';
+        div.textContent = item;
+        spinner.appendChild(div);
+      });
+
+      const randomIndex = Math.floor(Math.random() * items.length);
+      const midIndex = Math.floor(fullList.length / 2);
+      const targetIndex = midIndex + randomIndex;
+      const targetItem = spinner.children[targetIndex];
+	  console.log("Selected item:", fullList[targetIndex]);
+
+
+      document.querySelectorAll('.spinner-item').forEach(el => el.classList.remove('selected'));
+      if (targetItem) targetItem.classList.add('selected');
+
+spinner.scrollTo({ top: 0, behavior: 'auto' });
+
+setTimeout(() => {
+  targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  document.querySelectorAll('.spinner-item').forEach(el => el.classList.remove('selected'));
+  targetItem.classList.add('selected');
+
+  setTimeout(() => {
+    buttonContainer.classList.add('show');
+  }, 1000);
+}, 50);
+
+
+      setTimeout(() => {
+        buttonContainer.classList.add('show');
+      }, 1000);
+    }
+
+    function goToZomato() {
+      window.open('https://www.zomato.com/mumbai/delivery', '_blank');
+    }
+
+    function goToEatClub() {
+      window.open('https://www.eatclub.in', '_blank');
+    }
+
+    function goBack() {
+      document.getElementById('inputGroup').classList.remove('hide');
+      document.getElementById('spinnerContainer').classList.remove('show');
+      document.getElementById('selectionLabel').classList.remove('show');
+      document.getElementById('buttonContainer').classList.remove('show');
+	  document.getElementById('naahButton').style.display = 'none';
+
+    }
+  </script>
+</body>
+</html>
