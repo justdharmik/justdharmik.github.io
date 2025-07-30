@@ -1,6 +1,11 @@
-# Projects Showcase Repository - <a href="https://justdharmik.github.io">Git Repo 🔗 </a>
-- <i><b><a href="/clocks/">../clocks</a></b>  -  The Clocks / A Simple Bootstrapped JavaScript Website. </i> <br><a href="https://justdharmik.github.io/clocks" target="_blank" rel="noopener noreferrer"><i>Clocks Demo<i/><a/><br> 
-- <i><b><a href="/palindrome/">../palindrome</a></b>  -  Palindrome / A basic Palindrome Checker with additional functionality such as Word and Letter count. </i> <br><a href="https://justdharmik.github.io/palindrome" target="_blank" rel="noopener noreferrer"><i>Palindrome Demo<i/><a/><br> 
+# 🍽️ Food Genie
 
-- <i><b><a href="#">../template</a></b>  -  Template / You've reached the end of the doc, Pal. </i><br>
-- 
+**Food Genie** helps you decide *what to eat when you're feeling indecisive*! Just type in what you’re craving, spin the wheel, and let the genie pick something delicious for you.
+
+🌐 [**Live App → Try Now**](https://justdharmik.github.io/FoodGenie/)
+
+## 📸 App Preview
+
+![Food Genie App Mockup](./mockup.png)
+
+---
